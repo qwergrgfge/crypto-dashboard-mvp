@@ -12,6 +12,10 @@ export default async function handler(req, res) {
       ? requestedPath
       : `/${requestedPath}`;
     const targetUrl = new URL(`${COINGECKO_BASE_URL}${normalizedPath}`);
+    const apiKey = process.env.COINGECKO_API_KEY;
+    if (apiKey) {
+      targetUrl.searchParams.set("x_cg_demo_api_key", apiKey);
+    }
 
     const upstreamResponse = await fetch(targetUrl, {
       headers: {
@@ -21,6 +25,15 @@ export default async function handler(req, res) {
     });
 
     const body = await upstreamResponse.text();
+    if (upstreamResponse.status === 401) {
+      res.status(401).json({
+        error: "CoinGecko rejected the request (401).",
+        detail:
+          "Set COINGECKO_API_KEY in Vercel Project Settings -> Environment Variables, then redeploy.",
+      });
+      return;
+    }
+
     res.status(upstreamResponse.status);
     res.setHeader(
       "content-type",
