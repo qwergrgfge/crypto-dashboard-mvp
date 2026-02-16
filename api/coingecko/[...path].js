@@ -1,6 +1,6 @@
 const COINGECKO_BASE_URL = "https://api.coingecko.com/api/v3";
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   try {
     const rawPath = req.query.path;
     const segments = Array.isArray(rawPath)
@@ -42,4 +42,4 @@ module.exports = async function handler(req, res) {
       detail: error instanceof Error ? error.message : "Unknown error",
     });
   }
-};
+}
