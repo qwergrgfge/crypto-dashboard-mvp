@@ -1,4 +1,4 @@
-const COINCAP_BASE_URL = "https://api.coincap.io/v2";
+const COINPAPRIKA_BASE_URL = "https://api.coinpaprika.com/v1";
 
 export default async function handler(req, res) {
   try {
@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     const normalizedPath = requestedPath.startsWith("/")
       ? requestedPath
       : `/${requestedPath}`;
-    const targetUrl = new URL(`${COINCAP_BASE_URL}${normalizedPath}`);
+    const targetUrl = new URL(`${COINPAPRIKA_BASE_URL}${normalizedPath}`);
 
     const upstreamResponse = await fetch(targetUrl, {
       headers: {
@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     res.send(body);
   } catch (error) {
     res.status(502).json({
-      error: "Failed to reach CoinCap.",
+      error: "Failed to reach CoinPaprika.",
       detail: error instanceof Error ? error.message : "Unknown error",
     });
   }
