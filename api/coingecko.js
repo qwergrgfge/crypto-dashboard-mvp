@@ -2,24 +2,16 @@ const COINGECKO_BASE_URL = "https://api.coingecko.com/api/v3";
 
 export default async function handler(req, res) {
   try {
-    const rawPath = req.query.path;
-    const segments = Array.isArray(rawPath)
-      ? rawPath
-      : rawPath
-        ? [rawPath]
-        : [];
-
-    const encodedPath = segments.map((segment) => encodeURIComponent(segment)).join("/");
-    const targetUrl = new URL(`${COINGECKO_BASE_URL}/${encodedPath}`);
-
-    for (const [key, value] of Object.entries(req.query)) {
-      if (key === "path") continue;
-      if (Array.isArray(value)) {
-        value.forEach((entry) => targetUrl.searchParams.append(key, String(entry)));
-      } else if (value !== undefined) {
-        targetUrl.searchParams.set(key, String(value));
-      }
+    const requestedPath = String(req.query.path || "");
+    if (!requestedPath) {
+      res.status(400).json({ error: "Missing path query parameter." });
+      return;
     }
+
+    const normalizedPath = requestedPath.startsWith("/")
+      ? requestedPath
+      : `/${requestedPath}`;
+    const targetUrl = new URL(`${COINGECKO_BASE_URL}${normalizedPath}`);
 
     const upstreamResponse = await fetch(targetUrl, {
       headers: {

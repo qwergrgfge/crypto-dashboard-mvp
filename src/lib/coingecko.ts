@@ -1,6 +1,4 @@
-const COINGECKO_BASE_URL = import.meta.env.PROD
-  ? "/api/coingecko"
-  : "https://api.coingecko.com/api/v3";
+const COINGECKO_BASE_URL = "https://api.coingecko.com/api/v3";
 
 export type CoinMarketItem = {
   id: string;
@@ -61,9 +59,13 @@ export class ApiError extends Error {
 }
 
 async function fetchJson<T>(path: string): Promise<T> {
+  const requestUrl = import.meta.env.PROD
+    ? `/api/coingecko?${new URLSearchParams({ path }).toString()}`
+    : `${COINGECKO_BASE_URL}${path}`;
+
   let response: Response;
   try {
-    response = await fetch(`${COINGECKO_BASE_URL}${path}`);
+    response = await fetch(requestUrl);
   } catch {
     throw new ApiError(
       "Network error while loading CoinGecko data. Please retry in a moment.",
