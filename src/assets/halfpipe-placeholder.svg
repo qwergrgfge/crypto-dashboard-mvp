@@ -1,18 +1,78 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Winter halfpipe placeholder">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Anime style winter halfpipe scene">
   <defs>
-    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#8dd6ff"/>
-      <stop offset="100%" stop-color="#2f6da0"/>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#79c9ff"/>
+      <stop offset="34%" stop-color="#4b88d3"/>
+      <stop offset="100%" stop-color="#182b53"/>
     </linearGradient>
-    <linearGradient id="snow" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0%" stop-color="#eef7ff"/>
-      <stop offset="100%" stop-color="#c8dff2"/>
+    <radialGradient id="glow" cx="73%" cy="22%" r="30%">
+      <stop offset="0%" stop-color="#f8f1b2" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#f8f1b2" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pipeSnow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7fdff"/>
+      <stop offset="100%" stop-color="#c9def1"/>
+    </linearGradient>
+    <linearGradient id="deepSnow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d4ebff"/>
+      <stop offset="100%" stop-color="#8db2d3"/>
     </linearGradient>
   </defs>
+
   <rect width="1600" height="900" fill="url(#sky)"/>
-  <path d="M0 520L210 430L460 520L700 400L980 540L1210 420L1600 530V900H0Z" fill="#244e74" opacity="0.45"/>
-  <path d="M0 610L180 560L430 640L760 520L1040 650L1310 560L1600 640V900H0Z" fill="#17354f" opacity="0.55"/>
-  <path d="M220 760C220 650 300 560 400 560H1200C1300 560 1380 650 1380 760V900H220Z" fill="url(#snow)"/>
-  <path d="M270 760C270 676 332 610 410 610H1190C1268 610 1330 676 1330 760" fill="none" stroke="#ffffff" stroke-opacity="0.7" stroke-width="14"/>
-  <path d="M355 760C355 707 391 665 438 665H1162C1209 665 1245 707 1245 760" fill="none" stroke="#ffffff" stroke-opacity="0.55" stroke-width="10"/>
+  <ellipse cx="1170" cy="210" rx="250" ry="180" fill="url(#glow)"/>
+
+  <path d="M0 390L140 350L320 390L500 330L700 400L890 355L1080 405L1320 320L1600 420V900H0Z" fill="#284d7a" opacity="0.56"/>
+  <path d="M0 470L150 435L320 470L540 415L730 485L980 430L1200 500L1450 410L1600 465V900H0Z" fill="#17375d" opacity="0.66"/>
+  <path d="M0 570L220 540L410 590L670 530L910 620L1180 540L1400 615L1600 560V900H0Z" fill="#102742" opacity="0.76"/>
+
+  <g opacity="0.3" stroke="#e8f6ff" stroke-width="3" fill="none">
+    <path d="M90 180C260 140 430 150 600 125"/>
+    <path d="M220 120C420 90 580 95 760 80"/>
+    <path d="M540 160C730 125 900 130 1090 98"/>
+    <path d="M880 145C1050 115 1230 120 1420 92"/>
+  </g>
+
+  <g opacity="0.75">
+    <circle cx="180" cy="170" r="2.5" fill="#ffffff"/>
+    <circle cx="300" cy="220" r="2" fill="#ffffff"/>
+    <circle cx="430" cy="160" r="2" fill="#ffffff"/>
+    <circle cx="610" cy="200" r="2.5" fill="#ffffff"/>
+    <circle cx="780" cy="140" r="2" fill="#ffffff"/>
+    <circle cx="980" cy="190" r="2.5" fill="#ffffff"/>
+    <circle cx="1280" cy="180" r="2.2" fill="#ffffff"/>
+    <circle cx="1470" cy="150" r="2" fill="#ffffff"/>
+  </g>
+
+  <path d="M220 772C220 640 310 548 420 548H1180C1290 548 1380 640 1380 772V900H220Z" fill="url(#pipeSnow)"/>
+  <path d="M250 900V772C250 665 327 590 420 590H1180C1273 590 1350 665 1350 772V900Z" fill="url(#deepSnow)" opacity="0.7"/>
+  <path d="M270 770C270 680 335 615 420 615H1180C1265 615 1330 680 1330 770" fill="none" stroke="#ffffff" stroke-width="16" stroke-opacity="0.86"/>
+  <path d="M350 770C350 720 385 680 440 680H1160C1215 680 1250 720 1250 770" fill="none" stroke="#ffffff" stroke-width="9" stroke-opacity="0.6"/>
+
+  <g opacity="0.55" fill="#c9d7e8">
+    <rect x="0" y="675" width="1600" height="22"/>
+    <rect x="0" y="715" width="1600" height="16"/>
+  </g>
+
+  <g opacity="0.9">
+    <rect x="286" y="628" width="110" height="20" rx="4" fill="#e6474a"/>
+    <text x="300" y="643" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#f5f9ff">MILANO 2026 VIBE</text>
+    <rect x="1205" y="628" width="105" height="20" rx="4" fill="#3f71ff"/>
+    <text x="1222" y="643" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#f5f9ff">HALFPIPE</text>
+  </g>
+
+  <g>
+    <path d="M770 496C777 468 793 448 818 430L842 414L861 422C847 438 836 455 833 472L829 495Z" fill="#1d2331"/>
+    <path d="M839 408L857 394L874 403L859 418Z" fill="#f5e7e9"/>
+    <path d="M832 452L874 470L884 458L848 438Z" fill="#ff4d69"/>
+    <path d="M775 494L734 518L748 534L789 508Z" fill="#2dc6ff"/>
+    <ellipse cx="734" cy="523" rx="33" ry="6" fill="#2a344f"/>
+    <path d="M885 455C935 468 980 492 1022 525" stroke="#d6f4ff" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.85"/>
+    <g fill="#ecf8ff" opacity="0.88">
+      <circle cx="985" cy="500" r="5"/>
+      <circle cx="1010" cy="514" r="4"/>
+      <circle cx="1042" cy="534" r="4.8"/>
+      <circle cx="960" cy="488" r="3.5"/>
+    </g>
+  </g>
 </svg>

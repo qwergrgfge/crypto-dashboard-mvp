@@ -44,14 +44,14 @@ body {
   background-position: center, center, center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  filter: saturate(0.9);
+  filter: saturate(1.08) contrast(1.04);
 }
 
 .overlay {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.52);
   backdrop-filter: blur(2px);
 }
 
