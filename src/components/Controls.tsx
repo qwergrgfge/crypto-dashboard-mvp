@@ -1,4 +1,7 @@
-export type SortKey = "current_price" | "price_change_percentage_24h";
+export type SortKey =
+  | "market_cap_rank"
+  | "current_price"
+  | "price_change_percentage_24h";
 export type SortDir = "asc" | "desc";
 
 type ControlsProps = {
@@ -38,6 +41,7 @@ export function Controls({
           value={sortKey}
           onChange={(event) => onSortKeyChange(event.target.value as SortKey)}
         >
+          <option value="market_cap_rank">Rank</option>
           <option value="current_price">Price</option>
           <option value="price_change_percentage_24h">24h %</option>
         </select>
@@ -50,8 +54,8 @@ export function Controls({
           value={sortDir}
           onChange={(event) => onSortDirChange(event.target.value as SortDir)}
         >
-          <option value="desc">Highest first</option>
-          <option value="asc">Lowest first</option>
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
         </select>
       </div>
     </section>

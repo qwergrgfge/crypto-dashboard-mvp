@@ -20,8 +20,9 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [sortKey, setSortKey] = useState<SortKey>("current_price");
-  const [sortDir, setSortDir] = useState<SortDir>("desc");
+  const [sortKey, setSortKey] = useState<SortKey>("market_cap_rank");
+  const [sortDir, setSortDir] = useState<SortDir>("asc");
+  const [isBackgroundOnly, setIsBackgroundOnly] = useState(false);
   const [selectedCoinId, setSelectedCoinId] = useState<string | null>(() => {
     if (typeof window === "undefined") return null;
     return localStorage.getItem(SELECTED_COIN_STORAGE_KEY);
@@ -127,68 +128,80 @@ function App() {
   }, [coins, debouncedSearch, sortDir, sortKey]);
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell${isBackgroundOnly ? " background-only" : ""}`}>
       <div className="bg" />
       <div className="overlay" />
-      <main className="content">
-        <section className="hero-panel intro-panel">
-          <p className="eyebrow">Crypto Dashboard MVP</p>
-          <h1>Top Coins</h1>
-          <p className="intro">
-            Search and sort by price or 24h movement, then select a coin for the
-            detail view in the next phase.
-          </p>
-          {selectedCoinId ? (
-            <p className="selected-note">Selected coin: {selectedCoinId}</p>
-          ) : null}
-        </section>
+      <button
+        type="button"
+        className="picture-toggle"
+        onClick={() => setIsBackgroundOnly((prev) => !prev)}
+      >
+        {isBackgroundOnly ? "Back to Dashboard" : "View Background Only"}
+      </button>
 
-        <Controls
-          search={searchInput}
-          onSearchChange={setSearchInput}
-          sortKey={sortKey}
-          onSortKeyChange={setSortKey}
-          sortDir={sortDir}
-          onSortDirChange={setSortDir}
-        />
-
-        {loading ? (
-          <section className="hero-panel state-panel">Loading top coins...</section>
-        ) : null}
-
-        {error ? (
-          <section className="hero-panel state-panel error-panel">
-            <p>{error}</p>
-            <button type="button" onClick={() => void loadCoins()}>
-              Retry
-            </button>
+      {!isBackgroundOnly ? (
+        <main className="content">
+          <section className="hero-panel intro-panel">
+            <p className="eyebrow">Crypto Dashboard MVP</p>
+            <h1>Top Coins</h1>
+            <p className="intro">
+              Coins are ranked by market-cap rank by default. You can search and
+              change sorting from the controls below.
+            </p>
+            {selectedCoinId ? (
+              <p className="selected-note">Selected coin: {selectedCoinId}</p>
+            ) : null}
           </section>
-        ) : null}
 
-        {!loading && !error && filteredAndSortedCoins.length > 0 ? (
-          <CoinTable
-            coins={filteredAndSortedCoins}
-            selectedCoinId={selectedCoinId}
-            onSelectCoin={setSelectedCoinId}
+          <Controls
+            search={searchInput}
+            onSearchChange={setSearchInput}
+            sortKey={sortKey}
+            onSortKeyChange={setSortKey}
+            sortDir={sortDir}
+            onSortDirChange={setSortDir}
           />
-        ) : null}
 
-        {!loading && !error && filteredAndSortedCoins.length === 0 ? (
-          <section className="hero-panel state-panel">No coins match your search.</section>
-        ) : null}
+          {loading ? (
+            <section className="hero-panel state-panel">Loading top coins...</section>
+          ) : null}
 
-        {selectedCoinId ? (
-          <CoinDetail
-            coinId={selectedCoinId}
-            detail={detail}
-            chartPoints={chartPoints}
-            loading={detailLoading}
-            error={detailError}
-            onBack={() => setSelectedCoinId(null)}
-            onRetry={() => void loadCoinDetail(selectedCoinId)}
-          />
-        ) : null}
-      </main>
+          {error ? (
+            <section className="hero-panel state-panel error-panel">
+              <p>{error}</p>
+              <button type="button" onClick={() => void loadCoins()}>
+                Retry
+              </button>
+            </section>
+          ) : null}
+
+          {!loading && !error && filteredAndSortedCoins.length > 0 ? (
+            <CoinTable
+              coins={filteredAndSortedCoins}
+              selectedCoinId={selectedCoinId}
+              onSelectCoin={setSelectedCoinId}
+            />
+          ) : null}
+
+          {!loading && !error && filteredAndSortedCoins.length === 0 ? (
+            <section className="hero-panel state-panel">
+              No coins match your search.
+            </section>
+          ) : null}
+
+          {selectedCoinId ? (
+            <CoinDetail
+              coinId={selectedCoinId}
+              detail={detail}
+              chartPoints={chartPoints}
+              loading={detailLoading}
+              error={detailError}
+              onBack={() => setSelectedCoinId(null)}
+              onRetry={() => void loadCoinDetail(selectedCoinId)}
+            />
+          ) : null}
+        </main>
+      ) : null}
     </div>
   );
 }

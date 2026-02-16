@@ -44,15 +44,42 @@ body {
   background-position: center, center, center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  filter: saturate(1.08) contrast(1.04);
+  filter: saturate(1.16) contrast(1.08) brightness(1.08);
 }
 
 .overlay {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: rgba(0, 0, 0, 0.52);
-  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(1px);
+}
+
+.picture-toggle {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 5;
+  border: 1px solid rgba(189, 216, 247, 0.38);
+  border-radius: 12px;
+  background: rgba(7, 19, 36, 0.76);
+  color: #eaf5ff;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.picture-toggle:hover {
+  background: rgba(10, 26, 49, 0.82);
+}
+
+.app-shell.background-only .overlay {
+  background: rgba(0, 0, 0, 0.16);
+  backdrop-filter: none;
+}
+
+.app-shell.background-only .bg {
+  filter: saturate(1.22) contrast(1.12) brightness(1.14);
 }
 
 .content {
@@ -286,6 +313,13 @@ tbody td {
 
   .stats-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .picture-toggle {
+    top: 10px;
+    right: 10px;
+    padding: 9px 12px;
+    font-size: 0.82rem;
   }
 }
 
