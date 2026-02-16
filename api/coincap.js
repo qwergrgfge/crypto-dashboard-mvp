@@ -1,0 +1,37 @@
+const COINCAP_BASE_URL = "https://api.coincap.io/v2";
+
+export default async function handler(req, res) {
+  try {
+    const requestedPath = String(req.query.path || "");
+    if (!requestedPath) {
+      res.status(400).json({ error: "Missing path query parameter." });
+      return;
+    }
+
+    const normalizedPath = requestedPath.startsWith("/")
+      ? requestedPath
+      : `/${requestedPath}`;
+    const targetUrl = new URL(`${COINCAP_BASE_URL}${normalizedPath}`);
+
+    const upstreamResponse = await fetch(targetUrl, {
+      headers: {
+        accept: "application/json",
+        "user-agent": "crypto-dashboard-mvp/1.0",
+      },
+    });
+
+    const body = await upstreamResponse.text();
+    res.status(upstreamResponse.status);
+    res.setHeader(
+      "content-type",
+      upstreamResponse.headers.get("content-type") || "application/json; charset=utf-8",
+    );
+    res.setHeader("cache-control", "s-maxage=30, stale-while-revalidate=120");
+    res.send(body);
+  } catch (error) {
+    res.status(502).json({
+      error: "Failed to reach CoinCap.",
+      detail: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+}

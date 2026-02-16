@@ -59,9 +59,13 @@ export class ApiError extends Error {
 }
 
 async function fetchJson<T>(path: string): Promise<T> {
+  const requestUrl = import.meta.env.PROD
+    ? `/api/coincap?${new URLSearchParams({ path }).toString()}`
+    : `${API_BASE_URL}${path}`;
+
   let response: Response;
   try {
-    response = await fetch(`${API_BASE_URL}${path}`);
+    response = await fetch(requestUrl);
   } catch {
     throw new ApiError(
       "Network error while loading crypto data. Please retry in a moment.",
